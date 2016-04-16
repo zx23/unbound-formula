@@ -1,0 +1,52 @@
+unbound:
+  lookup:
+    server:
+      statistics-interval: 300
+      statistics-cumulative: "no"
+      extended-statistics: "yes"
+      num-threads: 1
+      interface:
+        - 127.0.0.1
+        - ::1
+        - 10.10.10.10
+      do-ip6: "no"
+      access-control:
+        - 127.0.0.0/8 allow
+      outgoing-interface:
+        - 10.10.10.10
+      module-config: iterator
+      prefetch: "yes"
+      prefetch-key: "yes"
+      local-data:
+        - "host.example.net A 10.10.10.10"
+      local-data-ptr:
+        - "10.10.10.10 host.example.com"
+      local-zone:
+        - '"127.in-addr.arpa." static'
+    forward-zone:
+      "example.net":
+        forward-addr:
+          - 1.1.1.1
+          - 100.100.100.100
+        forward-host:
+          - ns0.example.net
+        forward-first: "yes"
+    stub-zone:
+      "example.com":
+        stub-addr:
+          - 22.22.22.22
+          - 11.11.11.11
+        stub-host:
+          - ns0.example.com
+          - ns1.example.com
+        stub-prime: "no"
+        stub-first: "no"
+    python:
+      python-script: "/usr/local/etc/unbound/ubmodule-tst.py"
+    remote-control:
+      control-enable: "no"
+      control-use-cert: "yes"
+      control-interface:
+        - 127.0.0.1
+        - ::1
+      control-port: 8953

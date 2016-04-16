@@ -1,0 +1,40 @@
+unbound:
+  lookup:
+    server:
+      verbosity: 1
+      statistics-interval: 0
+      extended-statistics: "no"
+      interface:
+        - 127.0.0.1
+        - ::1
+      so-rcvbuf: 0
+      so-sndbuf: 0
+      max-udp-size: 4096
+      msg-cache-size: "4m"
+      max-udp-size: 4096
+      msg-cache-size: "4m"
+      rrset-cache-size: "4m"
+      cache-min-ttl: 0
+      tcp-upstream: "no"
+      tcp-mss: 0
+      outgoing-tcp-mss: 0
+      access-control:
+        - 0.0.0.0/0 refuse
+        - 127.0.0.0/8 allow
+        - ::0/0 refuse
+        - ::1 allow
+        - ::ffff:127.0.0.1 allow
+      username: "unbound"
+      log-time-ascii: "no"
+      harden-dnssec-stripped: "yes"
+      harden-referral-path: "no"
+      unwanted-reply-threshold: 0
+      do-not-query-address:
+        - 127.0.0.1/8
+        - ::1
+      do-not-query-localhost: "yes"
+      val-permissive-mode: "no"
+      key-cache-size: "4m"
+      neg-cache-size: "1m"
+      ssl-upstream: "no"
+      ratelimit: 0

@@ -1,0 +1,25 @@
+{## Start with  defaults from defaults.sls ##}
+{% import_yaml "unbound/defaults.yaml" as default_settings %}
+
+{##
+Setup variable using grains['os_family'] based logic, only add key:values here
+that differ from whats in defaults.yaml
+##}
+{% set os_map = salt['grains.filter_by']({
+  'FreeBSD': {
+    'service': 'unbound',
+    'package': 'unbound',
+    'config': '/usr/local/etc/unbound/unbound.conf',
+    'wheel_group': 'wheel',
+  },
+}, merge=salt['pillar.get']('os_map:lookup')) %}
+
+{## Merge the os_map to default_settings ##}
+{% do default_settings.unbound.update(os_map) %}
+
+{## Merge in template:lookup pillar ##}
+{% set unbound = salt['pillar.get'](
+  'unbound',
+  default=default_settings.unbound,
+  merge=True)
+%}

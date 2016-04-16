@@ -1,0 +1,58 @@
+# Managed by salt - changes will be overwritten
+
+server:
+{%- for key, values in settings['lookup']['server']|dictsort %}
+  {#- Beware, fragile jinja bellow!
+    No way to directly test if value is a list, so we have to resort to
+    the following test:
+      - it is an iterable
+      - it isn't a string (strings are iterable in jinja)
+      - it isn't a dictionary (also iterable)
+  -#}
+  {%- if values is iterable and values is not string and values is not mapping %}
+    {%- for value in values %}
+    {{ key }}: {{ value }}
+    {%- endfor %}
+  {%- else %}
+    {{ key }}: "{{ values }}"
+  {%- endif %}
+{%- endfor %}
+
+{#-
+  `python` and `remote-control` sections are given a special treatment
+-#}
+{%- for section in ['python', 'remote-control'] %}
+{%- for key, values in settings['lookup'].get(section, {}).items() %}
+{{ section }}:
+    {#- more fragile jinja to detect a list object #}
+    {%- if values is iterable and values is not string and values is not mapping %}
+    {%- for value in values %}
+    {{ key }}: {{ value }}
+    {%- endfor %}
+    {%- else %}
+    {{ key }}: "{{ values }}"
+    {%- endif %}
+{%- endfor %}
+{%- endfor %}
+
+{#-
+  `forward-zone` and `stub-zone` blocks are given a special treatment
+  too.  These are different from `python` and `remote-control` as they
+  are nested dicts
+-#}
+{%- for section in ['forward-zone', 'stub-zone'] %}
+{%- for zone, args in settings['lookup'].get(section, {}).items() %}
+{{ section }}:
+    name: {{ zone }}
+    {%- for key, values in args.items() %}
+    {#- more fragile jinja to detect a list object #}
+    {%- if values is iterable and values is not string and values is not mapping %}
+    {%- for value in values %}
+    {{ key }}: {{ value }}
+    {%- endfor %}
+    {%- else %}
+    {{ key }}: "{{ values }}"
+    {%- endif %}
+    {%- endfor %}
+{%- endfor %}
+{%- endfor %}
