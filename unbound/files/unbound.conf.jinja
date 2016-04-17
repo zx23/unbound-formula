@@ -11,7 +11,11 @@ server:
   -#}
   {%- if values is iterable and values is not string and values is not mapping %}
     {%- for value in values %}
+    {%- if key == "access-control" %}
     {{ key }}: {{ value }}
+    {%- else %}
+    {{ key }}: "{{ value }}"
+    {%- endif %}
     {%- endfor %}
   {%- else %}
     {{ key }}: "{{ values }}"
