@@ -65,5 +65,5 @@ server:
     yoyo.org ad block include
 -#}
 {%- if settings['anti_ad'] %}
-include {{ settings.config_dir }}/ad_servers
+include: {{ settings.config_dir }}/ad_servers
 {%- endif %}
