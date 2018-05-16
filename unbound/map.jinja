@@ -10,6 +10,7 @@ that differ from whats in defaults.yaml
     'service': 'unbound',
     'package': 'unbound',
     'config': '/usr/local/etc/unbound/unbound.conf',
+    'config_dir': '/usr/local/etc/unbound',
     'wheel_group': 'wheel',
   },
 }, merge=salt['pillar.get']('os_map:lookup')) %}
