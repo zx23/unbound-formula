@@ -1,7 +1,7 @@
 {%- from "unbound/map.jinja" import unbound with context %}
 
 include:
-  - .anti_ad.sls
+  - .anti_ad
 
 unbound:
   pkg.installed:
