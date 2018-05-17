@@ -11,8 +11,6 @@ unbound:
       so-sndbuf: 0
       max-udp-size: 4096
       msg-cache-size: "4m"
-      max-udp-size: 4096
-      msg-cache-size: "4m"
       rrset-cache-size: "4m"
       cache-min-ttl: 0
       tcp-upstream: "no"
