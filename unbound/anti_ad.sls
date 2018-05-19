@@ -1,10 +1,5 @@
 {%- from "unbound/map.jinja" import unbound with context %}
 
-{%- if unbound.anti_ad %}
-include:
-  - .anti_ad
-{%- endif %}
-
 anti_ad:
   file.managed:
     - name: {{ unbound.config_dir }}/ad_servers
