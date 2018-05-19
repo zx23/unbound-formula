@@ -8,3 +8,10 @@ anti_ad:
     - user: root
     - group: {{ unbound.wheel_group }}
     - mode: '0644'
+
+prepend_ad_server:
+  file.prepend:
+    - name: {{ unbound.config_dir }}/ad_servers
+    - text: 'server:'
+    - require:
+      - file: anti_ad
