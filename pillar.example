@@ -1,4 +1,8 @@
 unbound:
+  # This needs to be set to True or False.
+  anti_ad: False
+  # For Debian, the default packaged config includes, "/etc/unbound/unbound.conf.d". It is suggested to set a custom config here.
+  config: /etc/unbound/unbound.conf.d/custom-unbound.conf
   lookup:
     server:
       statistics-interval: 300

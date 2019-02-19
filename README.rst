@@ -32,3 +32,4 @@ Notes
 
 * The values for ``local-zone`` directive need to be specified as a list and
   surrounded by single quotes.
+* For Debian, the packaged default config includes, "/etc/unbound/unbound.conf.d". It is suggested to set the "unbound:config" pillar. See ``unbound/pillar.example``.
